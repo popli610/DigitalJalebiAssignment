@@ -18,12 +18,18 @@ To run the app locally, follow these steps:
 ```bash
    npm install
 ```
+5. **Environment Variables**: This project utilizes environment variables to manage configuration settings. If you need to customize any environment-specific values, create a file named .env in the root directory of the project and define your variables there. You can refer to the .env.example file for a template.
 
-5. **Start the Development Server**:  Once the dependencies are installed, start the development server by running:
+Here's an example of how to define environment variables in the .env file:
+
+REACT_APP_BASE_URL=https://dummyjson.com
+
+
+6. **Start the Development Server**:  Once the dependencies are installed, start the development server by running:
 ```bash
    npm run start
 ```
-6. **View the Application**:  Open your web browser and navigate to http://localhost:3000 to view the application.
+7. **View the Application**:  Open your web browser and navigate to http://localhost:3000 to view the application.
 
 ## GitHub Repository
 The source code for this project is available on GitHub. You can access it [ https://github.com/popli610/DigitalJalebiAssignment ].
