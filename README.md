@@ -6,11 +6,12 @@ This is a React app that I created using Create React App.
 
 To run the app locally, follow these steps:
 
-1. **Download the Source Code**: Download the source code provided in the attachment.
+1. **Clone the Repository**: Clone the GitHub repository to your computer using the following command:
+```bash
+   git clone [https://github.com/popli610/DigitalJalebiAssignment.git]
+```
 
-2. **Extract the Files**: Extract the downloaded zip file to a location on your computer.
-
-3. **Navigate to the Project Directory**: Open a terminal or command prompt and navigate to the extracted project directory.
+2. **Navigate to the Project Directory**: Open a terminal or command prompt and navigate to the cloned project directory.
 
 4. **Install Dependencies**: Run the following command to install project dependencies:
 
@@ -24,20 +25,8 @@ To run the app locally, follow these steps:
 ```
 6. **View the Application**:  Open your web browser and navigate to http://localhost:3000 to view the application.
 
-
-# Important Note
-This project relies on the following libraries for additional functionality:
-
-1. react-icons for displaying icons.
-2. Tailwind CSS for styling.
-3. react-hot-toast for displaying toast notifications.
-
-If you encounter any issues related to missing icons, styling, or toast notifications while running the application, make sure to install the necessary dependencies by running:
-
-```bash 
-npm install react-icons tailwindcss @tailwindcss/postcss7-compat postcss autoprefixer react-hot-toast
-```
-
+## GitHub Repository
+The source code for this project is available on GitHub. You can access it [ https://github.com/popli610/DigitalJalebiAssignment ].
 
 ## Contact
 
