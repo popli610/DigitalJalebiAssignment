@@ -3,11 +3,15 @@ import SearchBar from "./SearchBar";
 import { userService } from "../services/userService";
 import toast from "react-hot-toast"; // Importing toast for displaying notifications
 import { PiSpinnerGapBold } from "react-icons/pi"; // Importing spinner icon for loading indication
-
+import TablePagination from "@mui/material/TablePagination";
 
 const UserDisplay = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  //State management for pagination
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(30);
 
   const fetchData = async (query) => {
     try {
@@ -15,6 +19,7 @@ const UserDisplay = () => {
       const data = await userService.fetchUser(query); // Fetch user data from userService
       if (data?.users?.length) {
         // If users found, update filteredUsers state
+
         setFilteredUsers(data.users);
         setLoading(false);
       } else if (data?.users.length === 0) {
@@ -37,6 +42,16 @@ const UserDisplay = () => {
   // Handler function for search query
   const handleSearch = (query) => {
     fetchData(query);
+  };
+
+  //handling page change in pagination
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  //handling change in number of rows per page
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   return (
@@ -74,31 +89,42 @@ const UserDisplay = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {filteredUsers.map((user, id) => (
-                <tr
-                  className={id % 2 === 0 ? "bg-white" : "bg-gray-200"}
-                  key={user.id}
-                >
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    {id + 1}
-                  </td>
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{`${user.firstName} ${user.lastName}`}</td>
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    {user.email}
-                  </td>
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    {`${user.address.address}, ${user.address.city}, ${user.address.state}`}
-                  </td>
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    {user.gender}
-                  </td>
-                  <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    {user.age}
-                  </td>
-                </tr>
-              ))}
+              {filteredUsers
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((user, id) => (
+                  <tr
+                    className={id % 2 === 0 ? "bg-white" : "bg-gray-200"}
+                    key={user.id}
+                  >
+                    <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                      {id + 1 + rowsPerPage * page}
+                    </td>
+                    <td className="p-3 text-sm text-gray-700 whitespace-nowrap">{`${user.firstName} ${user.lastName}`}</td>
+                    <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                      {user.email}
+                    </td>
+                    <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                      {`${user.address.address}, ${user.address.city}, ${user.address.state}`}
+                    </td>
+                    <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                      {user.gender}
+                    </td>
+                    <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
+                      {user.age}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
+          <TablePagination
+            component="div"
+            count={filteredUsers.length}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPageOptions={[5, 10, 30, 50, 100]}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </div>
       )}
     </div>
