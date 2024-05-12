@@ -4,13 +4,15 @@ import { CiSearch } from "react-icons/ci";
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("");
 
+  // Handler for input change event
   const handleChange = (event) => {
-    setQuery(event.target.value);
+    setQuery(event.target.value); // Update the query state with the input value
   };
 
+  // Handler for form submission event
   const handleSubmit = (event) => {
-    event.preventDefault();
-    onSearch(query);
+    event.preventDefault(); // Prevent the default form submission behavior
+    onSearch(query); // Call the onSearch callback with the current query value
   };
 
   return (

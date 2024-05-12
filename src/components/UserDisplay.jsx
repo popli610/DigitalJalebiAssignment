@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import { userService } from "../services/userService";
-import toast from "react-hot-toast";
-import { PiSpinnerGapBold } from "react-icons/pi";
+import toast from "react-hot-toast"; // Importing toast for displaying notifications
+import { PiSpinnerGapBold } from "react-icons/pi"; // Importing spinner icon for loading indication
 
 
 const UserDisplay = () => {
@@ -12,34 +12,42 @@ const UserDisplay = () => {
   const fetchData = async (query) => {
     try {
       setLoading(true);
-      const data = await userService.fetchUser(query);
+      const data = await userService.fetchUser(query); // Fetch user data from userService
       if (data?.users?.length) {
+        // If users found, update filteredUsers state
         setFilteredUsers(data.users);
         setLoading(false);
-      }
-      else if(data?.users.length===0){
+      } else if (data?.users.length === 0) {
+        // If no users found, display a notification
         toast("No Entry Found", { icon: "⛔" });
         setLoading(false);
       }
     } catch (error) {
-      toast.error("Something Went Wrong!")
+      // If an error occurs during fetching data, display an error notification
+      toast.error("Something Went Wrong!");
       setLoading(false);
     }
   };
 
+  // useEffect hook to fetch initial data on component mount
   useEffect(() => {
-    fetchData("");
+    fetchData(""); // Fetch data with an empty query to display all users initially
   }, []);
 
+  // Handler function for search query
   const handleSearch = (query) => {
     fetchData(query);
   };
+
   return (
     <div className="container mx-auto flex flex-col gap-5 p-5 bg-gray-100  justify-center">
       <h1 className="text-2xl font-bold mb-4">Users</h1>
       <SearchBar onSearch={handleSearch} />
       {loading ? (
-        <div className="flex justify-center gap-3 text-xl">Loading, Please wait!!<PiSpinnerGapBold size={35}/> </div>
+        <div className="flex justify-center gap-3 text-xl">
+          Loading, Please wait!!
+          <PiSpinnerGapBold size={35} />{" "}
+        </div>
       ) : (
         <div className="overflow-auto shadow rounded-lg">
           <table className="w-full">
